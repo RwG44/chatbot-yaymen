@@ -1,7 +1,6 @@
 # -*- coding: utf8 -*-
 import os
 import json
-from datetime import datetime
 import requests
 import app
 import nlp_process as nlp
@@ -25,9 +24,9 @@ def main_process(data):
                             send_message(sender_id, reply_text)
                         if message.get("attachments"):
                             for attachment in message.get("attachments"):
-                               mtype = attachment["type"]
-                               url = attachment["payload"]["url"]  # the message's url                            
-                               send_attachment(sender_id, mtype, url)
+                                mtype = attachment["type"]
+                                url = attachment["payload"]["url"]  # the message's url                            
+                                send_attachment(sender_id, mtype, url)
                     except Exception as ex:
                         app.log("Error..: " + str(ex))
 
@@ -63,9 +62,9 @@ def send_message(recipient_id, message_text):
         app.log(res.status_code)
         app.log(res.text)
 
-def send_attachment(recipient_id, type, url):
+def send_attachment(recipient_id, mtype, url):
 
-    app.log("sending attachment to {recipient}: {type}".format(recipient=recipient_id, type=type))
+    app.log("sending attachment to {recipient}: {mtype}".format(recipient=recipient_id, mtype=mtype))
 
     params = {
         "access_token": os.environ["PAGE_ACCESS_TOKEN"]
@@ -79,7 +78,7 @@ def send_attachment(recipient_id, type, url):
         },
         "message": {
             "attachment":{
-                "type":type, 
+                "type":mtype, 
                 "payload":{
                     "url":url, 
                     "is_reusable": "true"

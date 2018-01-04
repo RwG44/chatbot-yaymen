@@ -1,3 +1,3 @@
 # -*- coding: utf8 -*-
 def nlp_process(text):
-    return ("Hello there!: " + text);
+    return (u"Hello there!: " + text);

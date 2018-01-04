@@ -3,14 +3,14 @@ import os
 import sys
 import json
 from datetime import datetime
-import requests
-from flask import Flask, request
+import bottle
+from bottle import default_app, request, route, response, get
 import message_process as mp
 
-app = Flask(__name__)
+#app = Flask(__name__)
 
 
-@app.route('/', methods=['GET'])
+@bottle.route('/', methods=['GET'])
 def verify():
     # when the endpoint is registered as a webhook, it must echo back
     # the 'hub.challenge' value it receives in the query arguments
@@ -22,7 +22,7 @@ def verify():
     return "Hello world", 200
 
 
-@app.route('/', methods=['POST'])
+@bottle.route('/', methods=['POST'])
 def webhook():
 
     # endpoint for processing incoming messaging events
@@ -43,6 +43,7 @@ def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
         pass  # squash logging errors in case of non-ascii text
     sys.stdout.flush()
 
+bottle.run(server='gevent', port=os.environ.get('PORT', 5000))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    bottle.debug(True)
