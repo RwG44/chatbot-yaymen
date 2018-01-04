@@ -1,10 +1,10 @@
 # -*- coding: utf8 -*-
 import os
-import sys
 import json
 from datetime import datetime
 import requests
-import app, nlp_process as nlp
+import app
+import nlp_process as nlp
 
 def main_process(data):
     if data["object"] == "page":
