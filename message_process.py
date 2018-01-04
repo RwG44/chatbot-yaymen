@@ -23,11 +23,11 @@ def main_process(data):
                             
                             send_message(sender_id, reply_text)
                         if message.get("attachments"):
-                            mtype = message["attachments"]["type"]
-                            url = message["attachments"]["payload"]["url"]  # the message's url                            
-                            app.log("Before send: {mtype}, url: {url}".format(mtype=mtype, url=url))
-                            
-                            send_attachment(sender_id, mtype, url)
+                            for attachment in message.get("attachments"):
+                               mtype = attachment["type"]
+                               url = attachment["payload"]["url"]  # the message's url                            
+                               #app.log("Before send: {mtype}, url: {url}".format(mtype=mtype, url=url))
+                               send_attachment(sender_id, mtype, url)
                     except Exception as ex:
                         app.log("Error..: " + str(ex))
 
@@ -90,7 +90,9 @@ def send_attachment(recipient_id, type, url):
             }
         }       
     })
+    #data = json.load(open("image.json"))
     res = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
     if res.status_code != 200:
         app.log(res.status_code)
         app.log(res.text)
+        
