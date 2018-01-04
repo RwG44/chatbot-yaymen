@@ -3,11 +3,16 @@ import os
 import sys
 import json
 from datetime import datetime
-import bottle
-from bottle import default_app, request, route, response, get
 import message_process as mp
 
-#app = Flask(__name__)
+try:
+    import gevent.monkey
+    gevent.monkey.patch_all()
+except:
+    pass
+
+import bottle
+from bottle import default_app, request, route, response, get
 
 
 @bottle.route('/', methods=['GET'])
