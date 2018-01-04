@@ -44,7 +44,7 @@ def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
     sys.stdout.flush()
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    #app.run(debug=True) web: waitress-serve --port=$PORT app:app
     log("starting server")
-    #serve(app, port=os.environ.get('PORT', 8080))
+    serve(app, port=os.environ.get('PORT', 8080))
     log("starting server done!")
