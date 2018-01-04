@@ -39,14 +39,15 @@ def webhook():
                     try:
                         sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                         recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
+                        message = messaging_event["message"]
                         reply_text = "Nothing"
 
-                        if messaging_event.get("message").get("text"):
-                            message_text = messaging_event["message"]["text"]  # the message's text
+                        if message.get("text"):
+                            message_text = message["text"]  # the message's text
                             reply_text = nlp_process(message_text)
                         
-                        if messaging_event.get("message").get("payload"):
-                            message_text = messaging_event["message"]["payload"]["url"]  # the message's text
+                        if message.get("attachments"):
+                            message_text = message["attachments"]["payload"]["url"]  # the message's text
                             reply_text = message_text
                         
                         send_message(sender_id, reply_text)
@@ -65,7 +66,7 @@ def webhook():
     return "ok", 200
 
 def nlp_process(text):
-    return "Hello there!: " + text;
+    return ("Hello there!: " + text);
 
 def send_message(recipient_id, message_text):
 
@@ -97,7 +98,7 @@ def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
         else:
             msg = unicode(msg).format(*args, **kwargs)
         #print u"{}: {}".format(datetime.now(), msg)
-        print u"{}".format(msg)
+        print msg
     except UnicodeEncodeError:
         pass  # squash logging errors in case of non-ascii text
     sys.stdout.flush()
