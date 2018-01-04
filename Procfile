@@ -1,1 +1,1 @@
-web: gevent app_flask:app --log-file=-
+web: python app_flask.py

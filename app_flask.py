@@ -3,9 +3,8 @@ import os
 import sys
 import json
 from datetime import datetime
-
-import requests
 from flask import Flask, request
+from waitress import serve
 
 import message_process as mp
 
@@ -45,4 +44,5 @@ def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
     sys.stdout.flush()
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    #app.run(debug=True)
+    serve(app)
