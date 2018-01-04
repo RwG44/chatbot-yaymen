@@ -4,7 +4,7 @@ import json
 from datetime import datetime
 import requests
 
-def main_process(data)
+def main_process(data):
     if data["object"] == "page":
 
         for entry in data["entry"]:
