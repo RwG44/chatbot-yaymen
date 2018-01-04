@@ -3,8 +3,6 @@ import os
 import sys
 import json
 from datetime import datetime
-import message_process as mp
-
 try:
     import gevent.monkey
     gevent.monkey.patch_all()
@@ -14,6 +12,7 @@ except:
 import bottle
 from bottle import default_app, request, route, response, get
 
+import message_process as mp
 
 @bottle.route('/', methods=['GET'])
 def verify():
@@ -48,7 +47,8 @@ def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
         pass  # squash logging errors in case of non-ascii text
     sys.stdout.flush()
 
-bottle.run(server='gevent', port=os.environ.get('PORT',5001))
+#bottle.run(server='gevent', port=os.environ.get('PORT', 5001))
+bottle.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
 
 if __name__ == '__main__':
     bottle.debug(True)
