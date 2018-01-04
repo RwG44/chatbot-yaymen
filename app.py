@@ -26,9 +26,9 @@ def verify():
 def webhook():
 
     # endpoint for processing incoming messaging events
-    data = request.get_json()
-    mp.main_process(data)
+    data = request.get_json()    
     log(data)  # you may not want to log every incoming message in production, but it's good for testing
+    mp.main_process(data)
     return "ok", 200
 
 def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku

@@ -16,19 +16,20 @@ def main_process(data):
                         sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                         #recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                         message = messaging_event["message"]
-                        reply_text = "Nothing"
-
+                        
                         if message.get("text"):
                             message_text = message["text"]  # the message's text
                             reply_text = nlp_process(message_text)
+                            
                             send_message(sender_id, reply_text)
                         if message.get("attachments"):
                             mtype = message["attachments"]["type"]
-                            url = message["attachments"]["payload"]["url"]  # the message's url
-                            reply_text = message_text
+                            url = message["attachments"]["payload"]["url"]  # the message's url                            
+                            app.log("Before send: {mtype}, url: {url}".format(mtype=mtype, url=url))
+                            
                             send_attachment(sender_id, mtype, url)
-                    except Exception:
-                        app.log("Error..: ")
+                    except Exception as ex:
+                        app.log("Error..: " + str(ex))
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
