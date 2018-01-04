@@ -1,3 +1,4 @@
+# -*- coding: utf8 -*-
 import os
 import sys
 import json
@@ -15,7 +16,6 @@ def verify():
     # the 'hub.challenge' value it receives in the query arguments
     if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
         if not request.args.get("hub.verify_token") == os.environ["VERIFY_TOKEN"]:
-        #if not request.args.get("hub.verify_token") == "minhtrung995":
             return "Verification token mismatch", 403
         return request.args["hub.challenge"], 200
 
@@ -36,9 +36,9 @@ def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
         if type(msg) is dict:
             msg = json.dumps(msg)
         else:
-            msg = unicode(msg).format(*args, **kwargs)
+            msg = msg.format(*args, **kwargs)
         #print u"{}: {}".format(datetime.now(), msg)
-        print msg
+        print(msg)
     except UnicodeEncodeError:
         pass  # squash logging errors in case of non-ascii text
     sys.stdout.flush()

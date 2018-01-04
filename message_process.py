@@ -1,9 +1,10 @@
+# -*- coding: utf8 -*-
 import os
 import sys
 import json
 from datetime import datetime
 import requests
-import app
+import app, nlp_process as nlp
 
 def main_process(data):
     if data["object"] == "page":
@@ -19,14 +20,13 @@ def main_process(data):
                         
                         if message.get("text"):
                             message_text = message["text"]  # the message's text
-                            reply_text = nlp_process(message_text)
+                            reply_text = nlp.nlp_process(message_text)
                             
                             send_message(sender_id, reply_text)
                         if message.get("attachments"):
                             for attachment in message.get("attachments"):
                                mtype = attachment["type"]
                                url = attachment["payload"]["url"]  # the message's url                            
-                               #app.log("Before send: {mtype}, url: {url}".format(mtype=mtype, url=url))
                                send_attachment(sender_id, mtype, url)
                     except Exception as ex:
                         app.log("Error..: " + str(ex))
@@ -39,9 +39,6 @@ def main_process(data):
 
                 if messaging_event.get("postback"):  # user clicked/tapped "postback" button
                     pass
-
-def nlp_process(text):
-    return ("Hello there!: " + text);
 
 def send_message(recipient_id, message_text):
 
