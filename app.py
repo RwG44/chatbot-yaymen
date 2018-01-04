@@ -49,5 +49,5 @@ if __name__ == '__main__':
     if os.environ.get('APP_LOCATION') != 'heroku':
         app.run(debug=True, host="127.0.0.1", port= 8080)
     else:
-        app.run(debug=False, port= os.environ.get('PORT', 8080))
+        app.run(debug=False)
     #serve(app,host="127.0.0.1", port= os.environ.get('PORT', 8080))
