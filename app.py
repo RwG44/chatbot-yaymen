@@ -19,7 +19,7 @@ def verify():
             return "Verification token mismatch", 403
         return request.args["hub.challenge"], 200
 
-    return "Hello world", 200
+    return "Hello world! This is chatbot", 200
 
 
 @app.route('/', methods=['POST'])
@@ -45,4 +45,5 @@ def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
 
 if __name__ == '__main__':
     #app.run(debug=True)
-    serve(app)
+    log("starting server")
+    serve(app, port=os.environ.get('PORT', 8080))
