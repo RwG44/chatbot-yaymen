@@ -36,13 +36,22 @@ def webhook():
             for messaging_event in entry["messaging"]:
 
                 if messaging_event.get("message"):  # someone sent us a message
+                    try:
+                        sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
+                        recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
+                        reply_text = "Nothing"
 
-                    sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
-                    recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
-                    message_text = messaging_event["message"]["text"]  # the message's text
-
-                    reply_text = nlp_process(message_text)
-                    send_message(sender_id, reply_text)
+                        if messaging_event.get("message").get("text"):
+                            message_text = messaging_event["message"]["text"]  # the message's text
+                            reply_text = nlp_process(message_text)
+                        
+                        if messaging_event.get("message").get("payload"):
+                            message_text = messaging_event["message"]["payload"]["url"]  # the message's text
+                            reply_text = message_text
+                        
+                        send_message(sender_id, reply_text)
+                    except Exception as expt :
+                        log("Error..: " + expt.msg)              
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
@@ -56,7 +65,7 @@ def webhook():
     return "ok", 200
 
 def nlp_process(text):
-    return "Hello there!"
+    return "Hello there!: " + text;
 
 def send_message(recipient_id, message_text):
 
@@ -87,7 +96,8 @@ def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
             msg = json.dumps(msg)
         else:
             msg = unicode(msg).format(*args, **kwargs)
-        print u"{}: {}".format(datetime.now(), msg)
+        #print u"{}: {}".format(datetime.now(), msg)
+        print u"{}".format(msg)
     except UnicodeEncodeError:
         pass  # squash logging errors in case of non-ascii text
     sys.stdout.flush()
