@@ -47,8 +47,7 @@ def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
         pass  # squash logging errors in case of non-ascii text
     sys.stdout.flush()
 
-bottle.run(server='auto', port=os.environ.get('PORT', 5001))
-
+bottle.run(server='waitress', port=os.environ.get('PORT', 5001))
 
 if __name__ == '__main__':
     bottle.debug(True)
