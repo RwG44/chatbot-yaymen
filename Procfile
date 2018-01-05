@@ -1,1 +1,1 @@
-web: gunicorn app:app --log-file=-
+web: waitress-serve --port=$PORT fb-messenger-bot.wsgi:application
