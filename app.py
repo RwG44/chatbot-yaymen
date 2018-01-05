@@ -45,9 +45,11 @@ def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
 
 if __name__ == '__main__':
     log("starting server")
-    #app.run(debug=True, host="127.0.0.1", port= 8080) #web: waitress-serve --port=$PORT app:app #heroku ps:scale web=1    
+    #app.run(debug=True, host="127.0.0.1", port= 8080) #web: waitress-serve --port=$PORT app:app
     if os.environ.get('APP_LOCATION') != 'heroku':
         app.run(debug=True, host="127.0.0.1", port= 8080)
     else:
         app.run(debug=False)
     #serve(app,host="127.0.0.1", port= os.environ.get('PORT', 8080))
+    #heroku local web -f Procfile.windows
+    #heroku ps:scale web=1    
