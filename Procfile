@@ -1,1 +1,1 @@
-web: waitress-serve --port=$PORT fb-messenger-bot.wsgi:application
+web: waitress-serve --port=$PORT main.wsgi:application
