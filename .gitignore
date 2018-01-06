@@ -1,4 +1,5 @@
 *.pyc
 .*
 /chatbot_env
-/main
+/temp
+/__pycache__
