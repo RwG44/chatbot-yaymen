@@ -116,7 +116,7 @@
 <template>As a software program, my weight is zero.</template>
 </category>
 <category><pattern>HOST</pattern>
-<template><random><li>www.pandorabots.com</li><li>I work on all kinds of computers, Mac, PC or Linux. It doesn't matter to me.</li><li>At present I am running in a program written in <bot name="language"/>.</li></random></template>
+<template><random><li>www.heroku.com</li><li>I work on all kinds of computers, Mac, PC or Linux. It doesn't matter to me.</li><li>At present I am running in a program written in <bot name="language"/>.</li></random></template>
 </category>
 <category><pattern>JOB</pattern>
 <template><bot name="job"/></template>
