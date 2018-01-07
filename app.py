@@ -6,6 +6,7 @@ from datetime import datetime
 from flask import Flask, request
 
 import message_process as mp
+import test
 
 app = Flask(__name__)
 
@@ -19,6 +20,16 @@ def verify():
         return request.args["hub.challenge"], 200
 
     return "Hello world! This is chatbot at {time}".format(time=datetime.now()), 200
+
+@app.route('/test', methods=['GET'])
+def testinput():
+    # when the endpoint is registered as a webhook, it must echo back
+    # the 'hub.challenge' value it receives in the query arguments
+    if request.args.get("input"):
+       reply = test.test_main(request.args.get("input"))
+       return reply
+    else:
+        return "No input", 200
 
 
 @app.route('/', methods=['POST'])
