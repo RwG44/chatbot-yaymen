@@ -21,7 +21,7 @@
 <pattern>SEARCH FOR *</pattern>
 <template>
 <think><set name="search"><star/></set></think>
-Which search engine would you like to use? Yahoo, Yahoo Auctions, or Ebay.
+Which search engine would you like to use? Yahoo, Bing, or Google.
 </template>
 </category>
 
@@ -30,6 +30,21 @@ Which search engine would you like to use? Yahoo, Yahoo Auctions, or Ebay.
 <that>WHICH SEARCH ENGINE WOULD YOU LIKE TO USE *</that>
 <template>
 <srai>SEARCH YAHOO FOR <get name="search"/></srai>
+</template>
+</category>
+
+<category>
+<pattern>GOOGLE</pattern>
+<that>WHICH SEARCH ENGINE WOULD YOU LIKE TO USE *</that>
+<template>
+<srai>SEARCH GOOGLE FOR <get name="search"/></srai>
+</template>
+</category>
+
+<category>
+<pattern>SEARCH GOOGLE FOR *</pattern>
+<template>
+<display target="target1">https://www.google.com.vn/search?q=<star/></display> <srai>WEBDONE</srai>
 </template>
 </category>
 
