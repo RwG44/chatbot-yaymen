@@ -3,8 +3,7 @@ import os
 import sys
 import json
 from datetime import datetime
-from flask import Flask, request
-
+from flask import Flask, request, render_template
 import message_process as mp
 import test
 
@@ -21,16 +20,21 @@ def verify():
 
     return "Hello world! This is chatbot at {time}".format(time=datetime.now()), 200
 
-@app.route('/test', methods=['GET'])
+@app.route('/test', methods=['POST'])
 def testinput():
     # when the endpoint is registered as a webhook, it must echo back
     # the 'hub.challenge' value it receives in the query arguments
-    if request.args.get("input"):
-       reply = test.test_main(request.args.get("input"))
-       return reply
+    input = request.form["input"]
+    if input != "":
+       reply = test.test_main(input)
+       return render_template("test.html", result = reply)
     else:
-        return "No input", 200
+        return render_template("test.html", result = "No input")
 
+
+@app.route('/test', methods=['GET'])
+def testinput2():
+    return render_template("test.html")
 
 @app.route('/', methods=['POST'])
 def webhook():

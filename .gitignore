@@ -1,5 +1,7 @@
 *.pyc
 .*
+.brn
 /chatbot_env
 /temp
 /__pycache__
+/templates
