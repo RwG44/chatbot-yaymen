@@ -19,7 +19,7 @@ def main_process(data):
                         
                         if message.get("text"):
                             message_text = message["text"]  # the message's text
-                            reply_text = nlp.nlp_process(message_text)
+                            reply_text = nlp.nlp_process(message_text, sender_id)
                             
                             send_message(sender_id, reply_text)
                         if message.get("attachments"):
