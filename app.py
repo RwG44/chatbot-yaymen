@@ -59,10 +59,11 @@ def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
 
 if __name__ == '__main__':
     log("starting server")
-    if os.environ.get('APP_LOCATION') != 'heroku':
+    #if os.environ.get('APP_LOCATION') != 'heroku':
         #app.run(debug=True, host="127.0.0.1", port= 8080)
     #else:
-        app.run(debug=False)
+        #app.run(debug=False)
+    app.run(debug=False)
+    log("finished at starting server")
     #heroku local web -f Procfile.windows
     #heroku ps:scale web=1
-
