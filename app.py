@@ -65,4 +65,4 @@ if __name__ == '__main__':
         app.run(debug=False)
     #heroku local web -f Procfile.windows
     #heroku ps:scale web=1
-  
+
