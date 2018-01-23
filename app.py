@@ -59,11 +59,17 @@ def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
 
 if __name__ == '__main__':
     log("starting server")
-    #if os.environ.get('APP_LOCATION') != 'heroku':
-        #app.run(debug=True, host="127.0.0.1", port= 8080)
-    #else:
-        #app.run(debug=False)
-    app.run(debug=False)
+    if os.environ.get('APP_LOCATION') == 'heroku':
+        app.run(debug=False)
+    if os.environ.get('APP_LOCATION') != 'openshift':
+        # Get the environment information we need to start the server
+        ip = os.environ['OPENSHIFT_PYTHON_IP']
+        port_num = int(os.environ['OPENSHIFT_PYTHON_PORT'])
+        host_name = os.environ['OPENSHIFT_GEAR_DNS']
+        log("Running at {ip}, {host_name}, {port_num}".format(ip,host_name,port_num))
+        app.run(debug=True, host=ip, port= port_num)
+    else:
+        app.run(debug=True, host="127.0.0.1", port= 8080)
     log("finished at starting server")
     #heroku local web -f Procfile.windows
     #heroku ps:scale web=1
