@@ -58,10 +58,11 @@ def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
     sys.stdout.flush()
 
 if __name__ == '__main__':
-    log("starting server")
-    if os.environ.get('APP_LOCATION') == 'heroku':
+    app_location = os.environ.get('APP_LOCATION', "Null")
+    log("starting server at " + app_location)
+    if app_location == 'heroku':
         app.run(debug=False)
-    if os.environ.get('APP_LOCATION') != 'openshift':
+    if app_location == 'openshift':
         # Get the environment information we need to start the server
         ip = os.environ['OPENSHIFT_PYTHON_IP']
         port_num = int(os.environ['OPENSHIFT_PYTHON_PORT'])
