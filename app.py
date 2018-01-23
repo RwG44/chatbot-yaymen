@@ -64,9 +64,9 @@ if __name__ == '__main__':
         app.run(debug=False)
     if app_location == 'openshift':
         # Get the environment information we need to start the server
-        ip = os.environ['OPENSHIFT_PYTHON_IP']
-        port_num = int(os.environ['OPENSHIFT_PYTHON_PORT'])
-        host_name = os.environ['OPENSHIFT_GEAR_DNS']
+        ip = os.environ.get('OPENSHIFT_PYTHON_IP')
+        port_num = int(os.environ.get('OPENSHIFT_PYTHON_PORT'))
+        host_name = os.environ.get('OPENSHIFT_GEAR_DNS')
         log("Running at {ip}, {host_name}, {port_num}".format(ip,host_name,port_num))
         app.run(debug=True, host=ip, port= port_num)
     else:
